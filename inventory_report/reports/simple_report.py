@@ -14,6 +14,13 @@ class SimpleReport:
                 count_products += 1
         return count_products
 
+    def __format_report(old_fab, valid_date, cp_name):
+        return (
+            f"Data de fabricação mais antiga: {old_fab} \n"
+            f"Data de validade mais próxima: {valid_date}\n"
+            f"Empresa com maior quantidade de produtos estocados: {cp_name}"
+        )
+
     @classmethod
     def generate(cls, product_list):
         old_fab = product_list[0]["data_de_fabricacao"]
@@ -39,8 +46,4 @@ class SimpleReport:
             if count_products > count_total:
                 count_total = count_products
                 cp_name = product["nome_da_empresa"]
-        return (
-            f"Data de fabricação mais antiga: {old_fab} \n"
-            f"Data de validade mais próxima: {valid_date}\n"
-            f"Empresa com maior quantidade de produtos estocados: {cp_name}"
-        )
+        return cls.__format_report(old_fab, valid_date, cp_name)

@@ -7,6 +7,13 @@ class SimpleReport:
         date_dt = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
         return (date_dt - datetime.date.today()).days
 
+    def __count_products(cp_name, product_list):
+        count_products = 0
+        for product in product_list:
+            if product["nome_da_empresa"] == cp_name:
+                count_products += 1
+        return count_products
+
     @classmethod
     def generate(cls, product_list):
         old_fab = product_list[0]["data_de_fabricacao"]
@@ -26,11 +33,9 @@ class SimpleReport:
             if product_diff_time < diff_time:
                 diff_time = product_diff_time
                 valid_date = product["data_de_validade"]
-
-            count_products = 0
-            for product2 in product_list:
-                if product2["nome_da_empresa"] == product["nome_da_empresa"]:
-                    count_products += 1
+            count_products = cls.__count_products(
+                product["nome_da_empresa"], product_list
+            )
             if count_products > count_total:
                 count_total = count_products
                 cp_name = product["nome_da_empresa"]

@@ -2,9 +2,8 @@ from inventory_report.reports.simple_report import SimpleReport
 
 
 class CompleteReport(SimpleReport):
-    @staticmethod
     def __format_report(product_list):
-        enterprises = set()
+        enterprises = list()
         company_stock_dictionary = dict()
 
         index = -1
@@ -12,8 +11,11 @@ class CompleteReport(SimpleReport):
         head = "Produtos estocados por empresa: \n"
         body = str()
 
-        for product in product_list:
-            enterprises.add(product["nome_da_empresa"])
+        [
+            enterprises.append(product["nome_da_empresa"])
+            for product in product_list
+            if product not in enterprises
+        ]
 
         for each_enterprise in enterprises:
             company_stock_dictionary[each_enterprise] = 0
@@ -33,5 +35,5 @@ class CompleteReport(SimpleReport):
     def generate(cls, product_list):
         simple_report = super().generate(product_list)
         complement_report = cls.__format_report(product_list)
-        complete_report = simple_report+"\n"+complement_report
+        complete_report = f"{simple_report}\n{complement_report}"
         return complete_report

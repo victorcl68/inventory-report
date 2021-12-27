@@ -33,5 +33,5 @@ class CompleteReport(SimpleReport):
     def generate(cls, product_list):
         simple_report = super().generate(product_list)
         complement_report = cls.__format_report(product_list)
-        complete_report = f"{simple_report}\n{complement_report}"
+        complete_report = simple_report+"\n"+complement_report
         return complete_report

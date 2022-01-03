@@ -15,7 +15,6 @@ class Inventory:
                 reader = json.load(file)
             else:
                 reader = cls.xml_reader(file_path)
-            print(type(reader))
             if report_type == "simples":
                 return SimpleReport.generate(reader)
             else:

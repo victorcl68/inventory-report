@@ -6,19 +6,15 @@ from inventory_report.reports.complete_report import CompleteReport
 
 
 class Inventory:
-    @classmethod
-    def import_data(cls, file_path, report_type):
+    @staticmethod
+    def csv_reader(file_path):
         with open(file_path) as file:
-            if "csv" in file_path:
-                reader = list(csv.DictReader(file))
-            elif "json" in file_path:
-                reader = json.load(file)
-            else:
-                reader = cls.xml_reader(file_path)
-            if report_type == "simples":
-                return SimpleReport.generate(reader)
-            else:
-                return CompleteReport.generate(reader)
+            return list(csv.DictReader(file))
+
+    @staticmethod
+    def json_reader(file_path):
+        with open(file_path) as file:
+            return json.load(file)
 
     # https://www.datacamp.com/community/tutorials/python-xml-elementtree
     @staticmethod
@@ -31,3 +27,16 @@ class Inventory:
                 dict_list[child.tag] = child.text
             reader.append(dict_list)
         return reader
+
+    @classmethod
+    def import_data(cls, file_path, report_type):
+        if "csv" in file_path:
+            reader = cls.csv_reader(file_path)
+        elif "json" in file_path:
+            reader = cls.json_reader(file_path)
+        else:
+            reader = cls.xml_reader(file_path)
+        if report_type == "simples":
+            return SimpleReport.generate(reader)
+        else:
+            return CompleteReport.generate(reader)

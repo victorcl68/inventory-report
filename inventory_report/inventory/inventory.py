@@ -29,13 +29,22 @@ class Inventory:
         return reader
 
     @classmethod
-    def import_data(cls, file_path, report_type):
+    def reader(cls, file_path):
         if "csv" in file_path:
-            reader = cls.csv_reader(file_path)
+            return cls.csv_reader(file_path)
         elif "json" in file_path:
-            reader = cls.json_reader(file_path)
-        else:
-            reader = cls.xml_reader(file_path)
+            return cls.json_reader(file_path)
+        elif "xml" in file_path:
+            return cls.xml_reader(file_path)
+
+    @classmethod
+    def check_extension(cls, file_path, extension):
+        if extension not in file_path:
+            raise ValueError("Arquivo inválido")
+
+    @classmethod
+    def import_data(cls, file_path, report_type):
+        reader = cls.reader(file_path)
         if report_type == "simples":
             return SimpleReport.generate(reader)
         else:

@@ -1,33 +1,16 @@
-from collections.abc import Iterable, Iterator
+from collections.abc import Iterator
 
 
-class ListaSemNone(Iterable):
-    def __init__(self, data):
-        self.data = data
-
-    def __iter__(self):
-        return MeuIterator(self.data.copy())
-
-
-class MeuIterator(Iterator):
+class InventoryIterator(Iterator):
     def __init__(self, iter_data):
+        self.index = 0
         self.iter_data = iter_data
-        self.indice = -1
 
     def __next__(self):
         try:
-            if self.iter_data[self.indice] is None:
-                self.indice += 1
-            item = self.iter_data[self.indice]
+            item = self.iter_data[self.index]
         except IndexError:
             raise StopIteration
         else:
-            self.indice += 1
+            self.index += 1
             return item
-
-
-# - - - - - -
-lista = ListaSemNone([1, 20, 34, "Alfa", None, "Beta", -7.8])
-
-for item in lista:
-    print(item)

@@ -7,4 +7,3 @@ class XmlImporter(Importer):
     def import_data(file_path):
         Inventory.check_extension(file_path, ".xml")
         return Inventory.reader(file_path)
-        # return super().import_data(file_path)

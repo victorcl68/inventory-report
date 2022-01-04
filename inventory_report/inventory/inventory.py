@@ -30,11 +30,11 @@ class Inventory:
 
     @classmethod
     def reader(cls, file_path):
-        if "csv" in file_path:
+        if ".csv" in file_path:
             return cls.csv_reader(file_path)
-        elif "json" in file_path:
+        elif ".json" in file_path:
             return cls.json_reader(file_path)
-        elif "xml" in file_path:
+        elif ".xml" in file_path:
             return cls.xml_reader(file_path)
 
     @classmethod

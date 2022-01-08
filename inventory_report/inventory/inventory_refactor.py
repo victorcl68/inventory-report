@@ -51,7 +51,7 @@ class InventoryRefactor:
             raise ValueError("Arquivo inválido")
 
     def import_data(self, file_path, report_type):
-        self.data = self.importer.import_data(file_path)
+        self.data += self.importer.import_data(file_path)
         reader = self.reader(file_path)
         if report_type == "simples":
             return SimpleReport.generate(reader)

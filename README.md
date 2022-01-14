@@ -21,7 +21,7 @@ Esses dados de estoque poderão ser obtidos de diversas fontes:
 
 Além disso, o relatório final deverá poder ser gerado em duas versões: simples e completa.
 
-## Como o projeto deve ser executável
+## Como o projeto deve ser executado
 
 O programa é executável via Linha de Comando com o comando `inventory_report <argumento1> <argumento2>`:
 
